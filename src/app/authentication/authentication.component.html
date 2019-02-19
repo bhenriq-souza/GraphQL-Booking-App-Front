@@ -1,0 +1,5 @@
+<div>
+  <button (click)="onSwitchMode()">SWITCH MODE</button>
+</div>
+<app-login *ngIf="login"></app-login>
+<app-registration *ngIf="!login"></app-registration>
