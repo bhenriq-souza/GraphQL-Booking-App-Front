@@ -3,8 +3,13 @@ import { Routes, RouterModule } from "@angular/router";
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full'
+  },
+  {
     path: "auth",
-    loadChildren: "./authentication/authentication.module#AuthenticationModule"
+    loadChildren: "./modules/authentication/authentication.module#AuthenticationModule"
   }
 ];
 
@@ -12,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

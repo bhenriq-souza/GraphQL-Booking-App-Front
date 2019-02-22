@@ -1,0 +1,20 @@
+<div class="auth">
+  <div class="auth__background"></div>
+  <div class="auth__top"></div>
+  <div class="auth__container">
+    <div class="auth__form shadow">
+      <header class="auth__form--header">
+        <button class="auth__form--header-tab" (click)="onSwitchMode('login')">
+          SIGN IN
+        </button>
+        <button class="auth__form--header-tab" (click)="onSwitchMode('registration')">
+          SIGN UP
+        </button>
+      </header>
+      <div class="auth__form--body">
+        <app-login *ngIf="mode==='login'"></app-login>
+        <app-registration *ngIf="mode==='registration'"></app-registration>
+      </div>
+    </div>
+  </div>
+</div>

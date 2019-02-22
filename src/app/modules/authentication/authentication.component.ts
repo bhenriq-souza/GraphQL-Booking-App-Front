@@ -6,15 +6,15 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./authentication.component.scss"]
 })
 export class AuthenticationComponent implements OnInit {
-  login: boolean;
+  mode: string = '';
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
-    this.login = true;
+    this.mode = 'login';
   }
 
-  onSwitchMode() {
-    return (this.login = !this.login);
+  onSwitchMode(mode: string): void {
+    this.mode = mode;
   }
 }
