@@ -13,8 +13,6 @@ import { AuthenticationComponent } from "./authentication.component";
 import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from "./registration/registration.component";
 
-
-
 @NgModule({
   declarations: [
     AuthenticationComponent,
