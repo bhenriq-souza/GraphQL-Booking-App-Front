@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../../services';
+import { Store } from '@ngrx/store';
+
+import { AppState } from '../../../stores/states';
+import { LogIn } from '../../../stores/actions';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +12,12 @@ import { AuthenticationService } from '../../../services';
 export class LoginComponent implements OnInit {
   data: any = {};
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() { }
 
-  onLogin() {
-    this.authService.login(this.data)
-      .subscribe(
-        data => console.log(data),
-        error => console.log(error)
-      );
+  onLogin(): void {
+    const payload = { ...this.data };
+    this.store.dispatch(new LogIn(payload));
   }
-
 }
