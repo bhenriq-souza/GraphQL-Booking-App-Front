@@ -2,9 +2,6 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
-/** Angular material */
-import { MatButtonModule } from '@angular/material';
-
 /** Routing */
 import { AuthenticationRoutingModule } from "./authentication.routing.module";
 
@@ -23,7 +20,6 @@ import { RegistrationComponent } from "./registration/registration.component";
     CommonModule,
     FormsModule,
     AuthenticationRoutingModule,
-    MatButtonModule
   ]
 })
 export class AuthenticationModule { }

@@ -35,7 +35,10 @@ export class AuthEffects {
   LogInSuccess: Observable<any> = this.actions
   .pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
-    tap(payload => this.authService.setToken(payload.payload.data.login.token))
+    tap(payload => {
+      this.authService.setToken(payload.payload.data.login.token);
+      this.router.navigateByUrl('/home');
+    })
   );
 
   @Effect({ dispatch: false })
