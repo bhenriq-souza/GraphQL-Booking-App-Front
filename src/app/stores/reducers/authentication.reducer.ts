@@ -4,17 +4,20 @@ import { User } from '../../models'
 export interface State {
     isAuthenticated: boolean;
     user: User | null;
-    errorMessage: string[] | null;
+    errorMessages: string[] | null;
 }
 
 export const initialState: State = {
     isAuthenticated: false,
     user: null,
-    errorMessage: null
+    errorMessages: null
 }
 
 export function reducer(state = initialState, action: All): State {
     switch (action.type) {
+      case AuthActionTypes.RESET_AUTH_STATE: {
+        return initialState;
+      }
       case AuthActionTypes.LOGIN_SUCCESS: {
         return {
           ...state,
@@ -23,13 +26,13 @@ export function reducer(state = initialState, action: All): State {
             token: action.payload.data.login.token,
             userId: action.payload.data.login.userId
           },
-          errorMessage: null
+          errorMessages: null
         };
       }
       case AuthActionTypes.LOGIN_FAILURE: {
         return {
           ...state,
-          errorMessage: action.payload.errors
+          errorMessages: action.payload.errors
         }
       }
       default: {

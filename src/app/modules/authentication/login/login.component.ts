@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { AppState } from '../../../stores/states';
+import { AppState, selectAuthState } from '../../../stores/states';
 import { LogIn } from '../../../stores/actions';
 
 @Component({
@@ -11,10 +12,16 @@ import { LogIn } from '../../../stores/actions';
 })
 export class LoginComponent implements OnInit {
   data: any = {};
+  getState: Observable<any>;
+  state: any = {};
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {
+    this.getState = this.store.select(selectAuthState);
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getState.subscribe(state => this.state = state);
+  }
 
   onLogin(): void {
     const payload = { ...this.data };

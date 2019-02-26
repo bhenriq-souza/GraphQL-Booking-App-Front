@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap, tap, catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../services';
-import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure } from '../actions';
+import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, ResetAuthState } from '../actions';
 
 @Injectable()
 export class AuthEffects {
@@ -41,4 +41,8 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   LogInFailure: Observable<any> = this.actions
   .pipe(ofType(AuthActionTypes.LOGIN_FAILURE));
+
+  @Effect({ dispatch: false})
+  ResetAuthState: Observable<any> = this.actions
+  .pipe(ofType(AuthActionTypes.RESET_AUTH_STATE));
 }

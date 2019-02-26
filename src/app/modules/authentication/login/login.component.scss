@@ -1,3 +1,5 @@
+@import '../../../../scss/main.scss';
+
 .form__auth-separator {
   display: flex;
   justify-content: flex-start;
@@ -22,5 +24,16 @@
 
 .form_auth--media-btn {
   text-align: center;
+}
+
+.form_auth--error {
+  text-align: center;
+  color: $color-primary;
+  margin-top: 10px;
+  margin-bottom: 0;
+
+  & > ul {
+    list-style: none;
+  }
 }
 

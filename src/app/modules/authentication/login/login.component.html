@@ -8,7 +8,14 @@
     <input type="password" class="form__input" style="width: 100%;" id="password" name="password"
       [(ngModel)]="data.password">
   </div>
-  <button class="btn btn-lg btn--primary" role="submit">send</button>
+  <div class="form__group">
+    <button class="btn btn-lg btn--primary" role="submit">send</button>
+    <div *ngIf="state.errorMessages" class="form_auth--error">
+      <ul>
+        <li *ngFor="let error of state.errorMessages">{{ error.message }}</li>
+      </ul>
+    </div>
+  </div>
   <div class="form__auth-separator">
     <hr>
     <span>or</span>

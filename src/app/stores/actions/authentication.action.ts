@@ -4,6 +4,7 @@ export enum AuthActionTypes {
     LOGIN = '[Auth] Login',
     LOGIN_SUCCESS = '[Auth] Login Success',
     LOGIN_FAILURE = '[Auth] Login Failure',
+    RESET_AUTH_STATE = '[Auth] Reset Auth State'
 }
 
 export class LogIn implements Action {
@@ -21,4 +22,10 @@ export class LogInFailure implements Action {
     constructor(public payload: any) {}
 }
 
-export type All = | LogIn | LogInSuccess | LogInFailure;
+
+export class ResetAuthState implements Action {
+    readonly type = AuthActionTypes.RESET_AUTH_STATE;
+    constructor() {}
+}
+
+export type All = | LogIn | LogInSuccess | LogInFailure | ResetAuthState;
