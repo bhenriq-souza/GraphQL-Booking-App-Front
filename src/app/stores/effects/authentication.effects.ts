@@ -22,7 +22,12 @@ export class AuthEffects {
   .pipe(
     ofType(AuthActionTypes.LOGIN),
     map((action: LogIn) => action.payload),
-    switchMap(payload => this.authService.login(payload).pipe(map(userData => new LogInSuccess(userData)))),
+    switchMap(payload => {
+      return this.authService.login(payload)
+        .pipe(
+          map(userData => new LogInSuccess(userData))
+        )
+    }),
     catchError(error => of(new LogInFailure(error.error)))
   );
 
