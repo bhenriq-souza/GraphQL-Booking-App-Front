@@ -3,10 +3,10 @@ import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../services';
-import { AuthActionTypes, LogIn, LogInSuccess } from '../actions';
+import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure } from '../actions';
 
 @Injectable()
 export class AuthEffects {
@@ -22,20 +22,18 @@ export class AuthEffects {
   .pipe(
     ofType(AuthActionTypes.LOGIN),
     map((action: LogIn) => action.payload),
-    switchMap(payload => {
-      return this.authService.login(payload)
-             .pipe(
-                map( userData => new LogInSuccess(userData))
-             )
-    })
+    switchMap(payload => this.authService.login(payload).pipe(map(userData => new LogInSuccess(userData)))),
+    catchError(error => of(new LogInFailure(error.error)))
   );
 
   @Effect({ dispatch: false })
   LogInSuccess: Observable<any> = this.actions
   .pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
-    tap(user => {
-      console.log('success: ', user.payload);
-    })
+    tap(payload => this.authService.setToken(payload.payload.data.login.token))
   );
+
+  @Effect({ dispatch: false })
+  LogInFailure: Observable<any> = this.actions
+  .pipe(ofType(AuthActionTypes.LOGIN_FAILURE));
 }

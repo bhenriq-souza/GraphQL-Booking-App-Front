@@ -22,16 +22,14 @@ export class AuthenticationService {
   ) { }
 
   private auth(authType: AuthenticationType, data: IAuthDTO): Observable<any> {
+    let graphQLQuery: any = {};
     switch (authType) {
       case 'login':
-        const graphQLQuery: any = this.graphQLUtil.generateGraphQLQuery('login', data);
-        if (graphQLQuery) {
-          return this.http.post(this.apiURL, graphQLQuery);
-        } else {
-          return null;
-        }
+        graphQLQuery = this.graphQLUtil.generateGraphQLQuery('login', data);
+        return this.http.post(this.apiURL, graphQLQuery);
       case 'registration':
-        return this.graphQLUtil.generateGraphQLQuery('registration', data);
+        graphQLQuery = this.graphQLUtil.generateGraphQLQuery('registration', data);
+        return this.http.post(this.apiURL, graphQLQuery);
       default:
         return null;
     }
@@ -41,11 +39,11 @@ export class AuthenticationService {
     return this.auth('login', data);
   }
 
-  get token() {
+  getToken(): string {
     return localStorage.get('graphql-course-token');
   }
 
-  set token(token: string) {
+  setToken(token): void {
     if (token) {
       localStorage.setItem('graphql-course-token', token);
     } else {

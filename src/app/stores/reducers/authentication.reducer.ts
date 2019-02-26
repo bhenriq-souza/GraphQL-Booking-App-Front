@@ -4,7 +4,7 @@ import { User } from '../../models'
 export interface State {
     isAuthenticated: boolean;
     user: User | null;
-    errorMessage: string | null;
+    errorMessage: string[] | null;
 }
 
 export const initialState: State = {
@@ -25,6 +25,12 @@ export function reducer(state = initialState, action: All): State {
           },
           errorMessage: null
         };
+      }
+      case AuthActionTypes.LOGIN_FAILURE: {
+        return {
+          ...state,
+          errorMessage: action.payload.errors
+        }
       }
       default: {
         return state;
