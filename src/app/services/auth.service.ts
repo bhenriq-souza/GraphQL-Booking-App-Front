@@ -3,23 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
+import { AppState, selectAuthState } from '../stores/states'; 
 import { environment } from 'src/environments/environment';
 import { AuthenticationType, IAuthDTO } from '../models';
 import { GraphQLUtils } from '../utils';
-import { AppState } from '../stores/states';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   private apiURL = environment.api_server;
-
+  private state: any = {};
+  
   constructor(
     private http: HttpClient,
     private graphQLUtil: GraphQLUtils,
-    private state: Store<AppState>
-  ) { }
+    private store: Store<AppState>
+  ) { 
+    this.store.select(selectAuthState).subscribe(state => this.state = state);
+  }
 
   private auth(authType: AuthenticationType, data: IAuthDTO): Observable<any> {
     let graphQLQuery: any = {};
@@ -33,6 +35,10 @@ export class AuthenticationService {
       default:
         return null;
     }
+  }
+
+  isAuthenticated(): boolean {
+    return this.state.isAuthenticated;
   }
 
   login(data: IAuthDTO): Observable<any> {

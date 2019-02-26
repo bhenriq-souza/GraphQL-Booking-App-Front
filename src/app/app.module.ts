@@ -14,7 +14,7 @@ import { AppRoutingModule } from "./app.routing.module";
 import { AppComponent } from "./app.component";
 
 /** Services */
-import { AuthenticationService } from './services';
+import { AuthenticationService, AuthGuardService } from './services';
 
 /** Utils */
 import { GraphQLUtils } from './utils';
@@ -24,7 +24,6 @@ import { AuthEffects } from './stores/effects';
 
 /** Reducers */
 import { reducers } from './stores/states';
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +37,7 @@ import { reducers } from './stores/states';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule],
-  providers: [AuthenticationService, GraphQLUtils],
+  providers: [AuthenticationService, GraphQLUtils, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
